@@ -149,3 +149,26 @@ def test_aws_config_bucket_reformat_msg(mock_reformat,
     assert isinstance(formatted_event['aws']['configuration']['createdTime'], float)
     assert isinstance(formatted_event['aws']['configuration']['iamInstanceProfile'], dict)
     assert isinstance(formatted_event['aws']['configuration']['unnecesary_fields']['Content'], list)
+
+
+bucket_files = [
+    {"Key": "file1", "LastModified": datetime(2024, 5, 18)},
+    {"Key": "file2", "LastModified": datetime(2024, 5, 19)},
+    {"Key": "file3", "LastModified": datetime(2024, 5, 17)},
+]
+@pytest.mark.parametrize("bucket_file", bucket_files)
+def test_filter_and_sort_bucket_files(bucket_file):
+    """Test to verify that the _filter_bucket_files function properly filters and sorts bucket files.
+
+    Parameters
+    ----------
+    bucket_file : dict
+        Dictionary representing a bucket file with keys "Key" (file name) and "LastModified" (last modification date).
+    """
+    instance = utils.get_mocked_bucket(class_=config.AWSConfigBucket)
+
+    filtered_sorted_files = list(instance._filter_bucket_files([bucket_file]))
+
+    assert len(filtered_sorted_files) == 1
+
+    assert filtered_sorted_files[0]["Key"] == bucket_file["Key"]

@@ -7,6 +7,8 @@ import re
 from os import path
 from datetime import datetime
 from time import mktime
+from typing import Iterator, List, Dict
+import aws_tools
 
 import aws_bucket
 
@@ -122,6 +124,24 @@ class AWSConfigBucket(aws_bucket.AWSLogsBucket):
         """
         return self._remove_padding_zeros_from_marker(
             aws_bucket.AWSBucket.marker_custom_date(self, aws_region, aws_account_id, date))
+    
+    def _filter_bucket_files(self, bucket_files: List[Dict], **kwargs) -> Iterator[Dict]:
+            """Apply filters over a list of bucket files and sort them by date.
+            Parameters
+            ----------
+            bucket_files : list
+                Bucket files to filter.
+            Yields
+            ------
+            Iterator[str]
+                A bucket file that matches the filters, sorted chronologically by date.
+            """
+            filtered_files = list(super()._filter_bucket_files(bucket_files, **kwargs))
+            
+            sorted_files = sorted(filtered_files, key=lambda x: x['LastModified'])
+            
+            for sorted_file in sorted_files:
+                yield sorted_file
 
     def reformat_msg(self, event):
         aws_bucket.AWSBucket.reformat_msg(self, event)
