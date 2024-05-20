@@ -172,3 +172,4 @@ def test_filter_and_sort_bucket_files(bucket_file):
     assert len(filtered_sorted_files) == 1
 
     assert filtered_sorted_files[0]["Key"] == bucket_file["Key"]
+    

@@ -8,7 +8,6 @@ from os import path
 from datetime import datetime
 from time import mktime
 from typing import Iterator, List, Dict
-import aws_tools
 
 import aws_bucket
 
