@@ -125,8 +125,7 @@ class AWSConfigBucket(aws_bucket.AWSLogsBucket):
             aws_bucket.AWSBucket.marker_custom_date(self, aws_region, aws_account_id, date))
     
     def _filter_bucket_files(self, bucket_files: List[Dict], **kwargs) -> Iterator[Dict]:
-        """
-        Apply filters over a list of bucket files and sort them by date.
+        """Apply filters over a list of bucket files and sort them by date.
 
         Parameters
         ----------
@@ -140,7 +139,6 @@ class AWSConfigBucket(aws_bucket.AWSLogsBucket):
         Iterator[Dict]
             A bucket file that matches the filters, sorted chronologically by date.
         """
-        
         def extract_date_from_key(file_key: str) -> datetime:
             """Extracts the date from the S3 file key, handling single-digit months and days."""
             date_regex = re.search(r"/(\d{4})/(\d{1,2})/(\d{1,2})/", file_key)
