@@ -106,4 +106,5 @@ jobs:
           s3uri="s3://packages-dev.internal.wazuh.com/development/wazuh/4.x/secondary/filebeat/modules/${{ env.FILEBEAT_TAR_NAME }}"
           echo "Package uploaded to: ${s3uri}"
           echo "s3uri=${s3uri}" >> "$GITHUB_OUTPUT"
-        
+
+
