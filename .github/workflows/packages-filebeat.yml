@@ -29,8 +29,6 @@ on:
 jobs:
   Filebeat-module-generation:
     runs-on: ubuntu-latest
-    outputs:
-      s3uri: ${{ steps.upload.outputs.s3uri }}
 
     steps:
       - name: Cancel previous runs
@@ -98,13 +96,11 @@ jobs:
           echo "MODULE_CHECKED=yes" >> $GITHUB_ENV
 
       - name: Upload Filebeat module to S3
-        id: upload
         if: env.MODULE_CHECKED == 'yes'
         working-directory: extensions/filebeat/7.x/wazuh-module
         run: |
           aws s3 cp ${{ env.FILEBEAT_TAR_NAME }} s3://packages-dev.internal.wazuh.com/development/wazuh/4.x/secondary/filebeat/modules/
           s3uri="s3://packages-dev.internal.wazuh.com/development/wazuh/4.x/secondary/filebeat/modules/${{ env.FILEBEAT_TAR_NAME }}"
-          echo "Package uploaded to: ${s3uri}"
-          echo "s3uri=${s3uri}" >> "$GITHUB_OUTPUT"
+          echo "S3 URI: ${s3uri}"
 
 
