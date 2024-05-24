@@ -104,6 +104,6 @@ jobs:
         run: |
           aws s3 cp ${{ env.FILEBEAT_TAR_NAME }} s3://packages-dev.internal.wazuh.com/development/wazuh/4.x/secondary/filebeat/modules/
           S3_URI="s3://packages-dev.internal.wazuh.com/development/wazuh/4.x/secondary/filebeat/modules/${{ env.FILEBEAT_TAR_NAME }}"
-          echo "Package uploaded to: "${S3_URI}"
+          echo "Package uploaded to: ${S3_URI}"
           echo "S3_URI=${S3_URI}" >> "GITHUB_OUTPUT"
         
