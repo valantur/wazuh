@@ -122,6 +122,6 @@ jobs:
         run: |
           aws s3 cp ${{ env.FILEBEAT_TAR_NAME }}.sha512 s3://packages-dev.internal.wazuh.com/development/wazuh/4.x/secondary/filebeat/modules/
           s3uri="s3://packages-dev.internal.wazuh.com/development/wazuh/4.x/secondary/filebeat/modules/${{ env.FILEBEAT_TAR_NAME }}.sha512"
-          echo "S3 SHA512 URI: ${s3uri}"
+          echo "S3 sha512 URI: ${s3uri}"
 
 
