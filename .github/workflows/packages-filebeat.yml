@@ -106,7 +106,8 @@ jobs:
         if: ${{ inputs.checksum }}
         working-directory: extensions/filebeat/7.x/wazuh-module
         run: |
-          sha512sum "${{ env.FILEBEAT_TAR_NAME }}" > "${{ env.FILEBEAT_TAR_NAME }}.sha512"
+          ls -l
+          #sha512sum "${{ env.FILEBEAT_TAR_NAME }}" > "${{ env.FILEBEAT_TAR_NAME }}.sha512"
 
       - name: Upload Filebeat module to S3
         if: env.MODULE_CHECKED == 'yes'
